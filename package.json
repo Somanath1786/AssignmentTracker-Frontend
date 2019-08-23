@@ -1,0 +1,20 @@
+{
+  "name": "AssignmentTracker-Frontend",
+  "version": "1.0.0",
+  "description": "Test front end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Somanath1786/AssignmentTracker-Frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Somanath1786/AssignmentTracker-Frontend/issues"
+  },
+  "homepage": "https://github.com/Somanath1786/AssignmentTracker-Frontend#readme"
+}
