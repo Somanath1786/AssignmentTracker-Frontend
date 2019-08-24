@@ -25,7 +25,7 @@ class SignupForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            username : '',
+            emailAddress : '',
             password : '',
             firstname : '',
             lastname : ''
@@ -41,24 +41,24 @@ class SignupForm extends React.Component {
 
     handleSubmit (e) {
         e.preventDefault()
-        // Dispatch an action here
+        this.props.onSubmit(this.state)
     }
 
     render() {
         return(
             <form onSubmit={this.handleSubmit} style ={formStyle}>
-                <h2>Login</h2>
+                <h2>Signup</h2>
                 <div style={divStyle}>
                     <div className='form-group' style={fieldSpacing}>
-                        <label htmlFor='username'>Email Address</label>
+                        <label htmlFor='emailAddress'>Email Address</label>
                         <br/>
                         <input
                             className='form-control'
-                            id='username'
+                            id='emailAddress'
                             onChange={this.handleChange}
-                            name='username'
+                            name='emailAddress'
                             type='text'
-                            value={this.state.username}
+                            value={this.state.emailAddress}
                             style = {inputStyle}
                             required
                         />
@@ -113,15 +113,15 @@ class SignupForm extends React.Component {
                 <button type='submit' className='btn btn-primary' style ={inputStyle}>
                     Submit
                 </button>
-                {/* Add a conditional here once the state is hooked up via redux store, to show errors based on state */}
-                {
+                {this.props.invalidCreds ?
                 <div style= {labelStyle}>
                     <lable htmlFor='errorMessage'>
                         <ul>
                             <li>Invalid login credentials. Please check your email and password and try again!</li>
                         </ul>
                     </lable>
-                </div>
+                </div> :
+                <div></div>
                 }
             </form>
         )

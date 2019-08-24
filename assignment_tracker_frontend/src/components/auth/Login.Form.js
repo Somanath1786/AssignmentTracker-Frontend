@@ -27,7 +27,7 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            username : '',
+            emailAddress : '',
             password : '',
         }
 
@@ -41,7 +41,7 @@ class LoginForm extends React.Component {
 
     handleSubmit (e) {
         e.preventDefault()
-        // Dispatch an action here
+        this.props.onSubmit(this.state)
     }
 
     render() {
@@ -50,15 +50,15 @@ class LoginForm extends React.Component {
                 <h2>Login</h2>
                 <div style={divStyle}>
                     <div className='form-group' style={fieldSpacing}>
-                        <label htmlFor='username'>Email Address</label>
+                        <label htmlFor='emailAddress'>Email Address</label>
                         <br/>
                         <input
                             className='form-control'
-                            id='username'
+                            id='emailAddress'
                             onChange={this.handleChange}
-                            name='username'
+                            name='emailAddress'
                             type='text'
-                            value={this.state.username}
+                            value={this.state.emailAddress}
                             style = {inputStyle}
                             required
                         />
@@ -82,7 +82,6 @@ class LoginForm extends React.Component {
                 <button type='submit' className='btn btn-primary' style ={inputStyle}>
                     Submit
                 </button>
-                {/* Add a conditional here once the state is hooked up via redux store, to show errors based on state */}
                 {this.props.invalidCreds ?
                 <div style= {labelStyle}>
                     <lable htmlFor='errorMessage'>
