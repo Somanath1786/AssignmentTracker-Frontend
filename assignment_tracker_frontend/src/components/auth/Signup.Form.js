@@ -1,5 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router'
+import { connect } from 'react-redux'
 
 const formStyle = {
     maxWidth : '500px',
@@ -33,6 +34,11 @@ class SignupForm extends React.Component {
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    componentDidMount()
+    {
+        this.props.dispatch({type : 'CLEAR_SIGNUP'})
     }
 
     handleChange ({ target : { name, value } }) {
@@ -113,13 +119,13 @@ class SignupForm extends React.Component {
                 <button type='submit' className='btn btn-primary' style ={inputStyle}>
                     Submit
                 </button>
-                {this.props.invalidCreds ?
+                {this.props.emailExists ?
                 <div style= {labelStyle}>
-                    <lable htmlFor='errorMessage'>
+                    <label htmlFor='errorMessage'>
                         <ul>
-                            <li>Invalid login credentials. Please check your email and password and try again!</li>
+                            <li>A user with this email address already existis. Please use a different email address</li>
                         </ul>
-                    </lable>
+                    </label>
                 </div> :
                 <div></div>
                 }
@@ -128,4 +134,16 @@ class SignupForm extends React.Component {
     }
 }
 
-export default withRouter(SignupForm)
+const signupFormWithRouter = withRouter(SignupForm)
+
+// Connect the redux store to react
+function mapStateToProps(state) {
+    return {
+        emailExists : state.emailExists
+    };
+  }
+
+  export default connect(
+    mapStateToProps,
+    null
+  )(signupFormWithRouter);

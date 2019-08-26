@@ -1,4 +1,5 @@
 import request from './request'
+import * as token from '../helpers/local-storage'
 
 const { NODE_ENV } = process.env
 const BASE_URL = NODE_ENV === 'development'
@@ -14,6 +15,10 @@ export const login = async (user) => {
     method: 'POST'
   })
   const json = await response.json()
+  if(json.status === 200)
+  {
+    token.setToken(json);
+  }
 
   return json
 }
@@ -28,6 +33,10 @@ export const signup = async (user) => {
   })
   const json = await response.json()
 
+  if(json.status === 201)
+  {
+    token.setToken(json);
+  }
   return json
 }
 

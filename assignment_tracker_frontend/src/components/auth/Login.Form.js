@@ -2,7 +2,6 @@ import React from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
-
 const formStyle = {
     maxWidth : '500px',
     marginLeft : '5%',
@@ -33,6 +32,11 @@ class LoginForm extends React.Component {
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    componentDidMount()
+    {
+        this.props.dispatch({type : 'CLEAR_LOGIN'})
     }
 
     handleChange ({ target : { name, value } }) {
@@ -84,11 +88,11 @@ class LoginForm extends React.Component {
                 </button>
                 {this.props.invalidCreds ?
                 <div style= {labelStyle}>
-                    <lable htmlFor='errorMessage'>
+                    <label htmlFor='errorMessage'>
                         <ul>
                             <li>Invalid login credentials. Please check your email and password and try again!</li>
                         </ul>
-                    </lable>
+                    </label>
                 </div> :
                 <div></div>
                 }
@@ -104,9 +108,9 @@ function mapStateToProps(state) {
     return {
       invalidCreds : state.invalidCreds
     };
-  }
+}
 
-  export default connect(
-    mapStateToProps,
-    null
-  )(loginFormWithRouter);
+export default connect(
+mapStateToProps,
+null
+)(loginFormWithRouter);
