@@ -35,7 +35,7 @@ const buttonStyle = {
     borderStyle :'groove'
 }
 
-export default class NewAssignment extends React.Component {
+export default class EditAssignment extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -57,10 +57,16 @@ export default class NewAssignment extends React.Component {
         //this.props.onSubmit(this.state)
     }
 
+    componentDidMount()
+    {
+        console.log('Helooooooooooooo')
+        console.log(this.props.match.params.userId, this.props.match.params.assignmentId)
+    }
+
     render() {
         return (
            <form style={formStyle}>
-               <h2> Create New Assignment </h2>
+               <h2> Edit Assignment </h2>
                <div style={outerDivStyle}>
                     <div>
                         <div className='form-group' style={fieldSpacing}>

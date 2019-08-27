@@ -4,19 +4,24 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import AllStudents from './allUsers';
 import NewAssignment from '../assignments/NewAssignment';
+import StudentAssignments from '../assignments/Student.Assignment';
+import EditAssignment from '../assignments/EditAssignment';
 
 class StudentContainer extends React.Component {
     render() {
         return (
             <div>
                 <Route path='/users/:userId/assignemnts' exact component= {() => {
-                    return(<h2>Placeholder for new assignemnts</h2>)
+                    return(<StudentAssignments />)
                 }}/>
                 <Route path='/users/students' exact component= {() => {
                     return(<AllStudents />)
                 }}/>
                 <Route path='/users/:userId/assignemnts/new' exact component= {() => {
                     return(<NewAssignment />)
+                }}/>
+                <Route path='/users/:userId/assignemnts/:assignmentId/edit' exact render= {(props) => {
+                    return(<EditAssignment {...props}/>)
                 }}/>
             </div>
         )
