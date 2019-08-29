@@ -82,7 +82,8 @@ class HomePage extends React.Component {
         <Navigation logoutUser = {this.logoutUser}/>
         <Switch>
           <Route path='/login' exact component={() => {
-            return this.props.currentUserId ? <Redirect to={`/users/${this.props.currentUserId}/assignemnts`}/> : <LoginForm onSubmit={this.loginUser} />
+            return this.props.currentUserId ?
+            (this.props.isAdmin ? <Redirect to='/users/students'/> :<Redirect to={`/users/${this.props.currentUserId}/assignemnts`}/>) : <LoginForm onSubmit={this.loginUser} />
             }}/>
           <Route path='/signup' exact component={() => {
             return this.props.currentUserId ? <Redirect to='/users'/> : <SignupForm onSubmit={this.signupUser} />

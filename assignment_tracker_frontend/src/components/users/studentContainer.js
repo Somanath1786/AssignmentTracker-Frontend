@@ -17,8 +17,8 @@ class StudentContainer extends React.Component {
                 <Route path='/users/students' exact component= {() => {
                     return(<AllStudents />)
                 }}/>
-                <Route path='/users/:userId/assignemnts/new' exact component= {() => {
-                    return(<NewAssignment />)
+                <Route path='/users/:userId/assignemnts/new' exact render= {(props) => {
+                    return(<NewAssignment {...props}/>)
                 }}/>
                 <Route path='/users/:userId/assignemnts/:assignmentId/edit' exact render= {(props) => {
                     return(<EditAssignment {...props}/>)

@@ -1,4 +1,6 @@
 import React from 'react'
+import * as users from '../../api/user'
+import { Redirect } from 'react-router-dom'
 
 const formStyle = {
     maxWidth : '600px',
@@ -41,7 +43,8 @@ export default class NewAssignment extends React.Component {
         this.state = {
             title : '',
             link : '',
-            description : ''
+            description : '',
+            done : false
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -52,14 +55,18 @@ export default class NewAssignment extends React.Component {
         this.setState({ [name] : value})
     }
 
-    handleSubmit (e) {
+    async handleSubmit (e) {
         e.preventDefault()
-        //this.props.onSubmit(this.state)
+        const response = await users.newAssignment( this.props.match.params.userId,
+                                                    this.state.title,
+                                                    this.state.link,
+                                                    this.state.description)
+       this.setState({done : true})
     }
 
     render() {
         return (
-           <form style={formStyle}>
+           <form style={formStyle} onSubmit={this.handleSubmit}>
                <h2> Create New Assignment </h2>
                <div style={outerDivStyle}>
                     <div>
@@ -112,6 +119,7 @@ export default class NewAssignment extends React.Component {
                <button type='submit' className='btn btn-primary' style ={buttonStyle}>
                     Submit
                 </button>
+                {this.state.done && <Redirect to={`/users/${this.props.match.params.userId}/assignemnts`}/>}
            </form>
         )
     }

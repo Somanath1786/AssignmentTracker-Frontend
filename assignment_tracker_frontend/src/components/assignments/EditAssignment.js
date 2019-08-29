@@ -1,4 +1,6 @@
 import React from 'react'
+import * as users from '../../api/user'
+import { Redirect } from 'react-router-dom'
 
 const formStyle = {
     maxWidth : '600px',
@@ -41,7 +43,8 @@ export default class EditAssignment extends React.Component {
         this.state = {
             title : '',
             link : '',
-            description : ''
+            description : '',
+            done : false
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -52,20 +55,28 @@ export default class EditAssignment extends React.Component {
         this.setState({ [name] : value})
     }
 
-    handleSubmit (e) {
+    async handleSubmit (e) {
         e.preventDefault()
-        //this.props.onSubmit(this.state)
+        const response = await users.editAssignment(  this.props.match.params.userId,
+            this.props.match.params.assignmentId,
+            this.state.title,
+            this.state.link,
+            this.state.description)
+        this.setState({done : true})
+
     }
 
-    componentDidMount()
+    async componentDidMount()
     {
-        console.log('Helooooooooooooo')
-        console.log(this.props.match.params.userId, this.props.match.params.assignmentId)
+        const response = await users.getAssignment(this.props.match.params.userId, this.props.match.params.assignmentId)
+        this.setState({ title : response.assignment[0].assignments[0].title,
+                        link : response.assignment[0].assignments[0].link,
+                        description : response.assignment[0].assignments[0].description})
     }
 
     render() {
         return (
-           <form style={formStyle}>
+           <form style={formStyle} onSubmit={this.handleSubmit}>
                <h2> Edit Assignment </h2>
                <div style={outerDivStyle}>
                     <div>
@@ -118,6 +129,7 @@ export default class EditAssignment extends React.Component {
                <button type='submit' className='btn btn-primary' style ={buttonStyle}>
                     Submit
                 </button>
+                {this.state.done && <Redirect to={`/users/${this.props.match.params.userId}/assignemnts`}/>}
            </form>
         )
     }

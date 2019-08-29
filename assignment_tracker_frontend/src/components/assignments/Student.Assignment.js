@@ -1,10 +1,9 @@
 import React from 'react'
 import {connect } from 'react-redux'
-import { Route , Redirect} from 'react-router-dom'
+import { Redirect} from 'react-router-dom'
 // Helpers
 import * as users from '../../api/user'
 import AssignmentContainer from './AssignmentContainer';
-import EditAssignment from './EditAssignment';
 
 const divStyle = {
     display : 'flex',
@@ -64,8 +63,7 @@ class StudentAssignments extends React.Component {
         const newAssignmentsList = this.state.assignments.filter((assignment)=> {
             return assignment._id !== assignmentId
         })
-
-        // TODO: Make the api call to the server to remove the assignment
+        const response = await users.deleteAssignment(this.props.currentUserId, assignmentId)
         this.setState({assignments : newAssignmentsList, deleted : true, deletedAssignment : assignmentName })
     }
 
@@ -73,7 +71,7 @@ class StudentAssignments extends React.Component {
         const assignment = this.state.assignments.filter((assignment) => {
             return assignment._id === assignmentId
         })
-        console.log(assignment)
+
         if (assignment.length > 0)
         {
             this.setState({edit: true, assignmentToEdit : assignment[0]})
