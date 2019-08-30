@@ -1,10 +1,8 @@
 import request from './request'
 import * as token from '../helpers/local-storage'
 
-const { NODE_ENV } = process.env
-const BASE_URL = NODE_ENV === 'development'
-  ? 'http://localhost:5000'
-  : 'tbd' // Once we deploy, we need to change this
+const { REACT_APP_API_DOMAIN } = process.env
+const BASE_URL = REACT_APP_API_DOMAIN
 
 export const deleteAssignment = async(userId, assignmentId) => {
     const response = await fetch(`${BASE_URL}/api/user/${userId}/assignments/${assignmentId}`, {
