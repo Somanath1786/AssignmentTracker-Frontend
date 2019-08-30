@@ -44,7 +44,7 @@ export default class ScoresFilter extends React.Component {
 
     handleSubmit (e) {
         e.preventDefault()
-        //this.props.onSubmit(this.state)
+        this.props.filterScore(this.state.minScore, this.state.maxScore)
     }
 
     render() {
@@ -52,20 +52,7 @@ export default class ScoresFilter extends React.Component {
             <form onSubmit={this.handleSubmit} style ={formStyle}>
                 <div style={divStyle}>
                     <div className='form-group' style={fieldSpacing}>
-                        <label htmlFor='maxScore'> <strong>Score is Above : </strong></label>
-                        <input
-                            className='form-control'
-                            id='maxScore'
-                            onChange={this.handleChange}
-                            name='maxScore'
-                            type='text'
-                            value={this.state.maxScore}
-                            style = {inputStyle}
-                            required
-                        />
-                    </div>
-                    <div className='form-group' style ={fieldSpacing}>
-                        <label htmlFor='minScore'><strong>Score is Below : </strong></label>
+                        <label htmlFor='minScore'> <strong>Score is Above : </strong></label>
                         <input
                             className='form-control'
                             id='minScore'
@@ -73,6 +60,19 @@ export default class ScoresFilter extends React.Component {
                             name='minScore'
                             type='text'
                             value={this.state.minScore}
+                            style = {inputStyle}
+                            required
+                        />
+                    </div>
+                    <div className='form-group' style ={fieldSpacing}>
+                        <label htmlFor='maxScore'><strong>Score is Below : </strong></label>
+                        <input
+                            className='form-control'
+                            id='maxScore'
+                            onChange={this.handleChange}
+                            name='maxScore'
+                            type='text'
+                            value={this.state.maxScore}
                             style = {inputStyle}
                             required
                         />

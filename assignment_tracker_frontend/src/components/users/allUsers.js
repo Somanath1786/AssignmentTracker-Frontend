@@ -52,11 +52,19 @@ class AllStudents extends React.Component {
             students : '',
             loading : true
         }
+
+        this.filterScore = this.filterScore.bind(this)
     }
 
     async componentDidMount()
     {
         const allStudents = await users.getAllStudents()
+        this.setState({students : allStudents.students, loading: false})
+    }
+
+    async filterScore (minScore, maxScore)
+    {
+        const allStudents = await users.getFilteredStudentsList(minScore, maxScore)
         this.setState({students : allStudents.students, loading: false})
     }
 
@@ -69,7 +77,7 @@ class AllStudents extends React.Component {
         return(
             <>
             {this.props.isAdmin &&
-                <ScoresFilter />
+                <ScoresFilter filterScore={this.filterScore}/>
             }
             {drawStudentsList(this.state.students, this.props.isAdmin)}
             </>

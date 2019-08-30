@@ -44,7 +44,22 @@ export const newAssignment = async(userId, title, link, description) => {
       return json
 }
 
+export const updateScores = async(userId, assignmentId, score, maxScore) => {
+  const response = await fetch(`${BASE_URL}/api/user/admin/assignments/${assignmentId}`, {
+    body : JSON.stringify({userId : userId, score : score, maxScore : maxScore}),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token.getToken()}`
+    },
+    method: 'PATCH'
+  })
+  const json = await response.json()
+  return json
+}
+
 export const getAllStudents = () => request('/api/user/students')
+
+export const getFilteredStudentsList =(minScore, maxScore) => request(`/api/user/students?minScore=${minScore}&&maxScore=${maxScore}`)
 
 export const getAllAssignmentsForCurrentStudent = (userId) => request(`/api/user/${userId}/assignments`)
 

@@ -83,7 +83,7 @@ export default class AdminAssignmentContainer extends React.Component {
 
     handleSubmit (e) {
         e.preventDefault()
-        //this.props.onSubmit(this.state)
+        this.props.updateScore(this.props.assignment.userId, this.props.assignment._id, this.state.score, this.state.maxScore)
     }
 
     render() {
